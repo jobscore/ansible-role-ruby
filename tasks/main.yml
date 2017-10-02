@@ -6,12 +6,12 @@
     update_cache: yes
     cache_valid_time: 600
 
-- name: Check ruby version
+- name: Check if ruby is installed and in the right version
   shell: "{{ruby_path}}/ruby --version"
   register: version_check
   ignore_errors: true
 
-- name: Ensure the right Ruby version is installed
+- name: Decide whether or not install Ruby
   set_fact:
     install_ruby: true
   when: "version_check|error or {{ ruby_version }} not in version_check.stdout"
