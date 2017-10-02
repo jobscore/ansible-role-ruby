@@ -11,7 +11,7 @@
     - name: Ensure the right Ruby version is installed
       fail:
         msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
-      when: "{{ ruby_version }} not in version_check.stdout"
+      when: ruby_version not in version_check.stdout
 
 - hosts: localhost
   vars:
@@ -27,4 +27,4 @@
         msg: >
           "The installed ruby version is different from the expected. "
           "Expected {{ ruby_version }} got {{ version_check.stdout }}"
-      when: "{{ ruby_version }} not in version_check.stdout"
+      when: ruby_version not in version_check.stdout
