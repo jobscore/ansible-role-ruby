@@ -1,0 +1,37 @@
+---
+# Install Ruby
+
+- name: Ensure APT dependencies are installed
+  apt:
+    name: "{{ item }}"
+    state: present
+    install_recommends: yes
+  with_items:
+    - build-essential
+    - curl
+    - git
+    - libc6-dev
+    - libreadline-dev
+    - libreadline6-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt-dev
+    - libyaml-dev
+    - make
+    - sqlite3
+    - zlib1g-dev
+
+- name: Clone ruby-build repo
+  git:
+    repo: "{{ ruby_build_repo }}"
+    dest: /tmp
+    depth: 1
+
+- name: Install ruby-build
+  shell: /tmp/ruby-build/install.sh creates={{ ruby_path}}/ruby-build"
+
+- name: Install ruby
+  shell: >
+    "ruby-build {{ ruby_version }} /usr/local "
+    "creates={{ ruby_path}}/ruby "

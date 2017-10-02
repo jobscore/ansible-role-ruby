@@ -1,5 +1,30 @@
 ---
 - hosts: localhost
-  remote_user: root
+  vars:
+    ruby_version: 2.1.6
   roles:
     - role_under_test
+  tasks:
+    - name: Check ruby version
+      shell: "ruby --version"
+      register: version_check
+    - name: Ensure the right Ruby version is installed
+      fail:
+        msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
+      when: "{{ ruby_version }} not in version_check.stdout"
+
+- hosts: localhost
+  vars:
+    ruby_version: 2.3.4
+  roles:
+    - role_under_test
+  tasks:
+    - name: Check ruby version
+      shell: "ruby --version"
+      register: version_check
+    - name: Ensure the right Ruby version is installed
+      fail:
+        msg: >
+          "The installed ruby version is different from the expected. "
+          "Expected {{ ruby_version }} got {{ version_check.stdout }}"
+      when: "{{ ruby_version }} not in version_check.stdout"
