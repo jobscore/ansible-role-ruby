@@ -1,0 +1,66 @@
+---
+# tasks file for ansible-role-ruby
+---
+- name: update apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 600
+
+- name: install build depends
+  apt: name={{ item }} state=present install_recommends=yes
+  with_items:
+    - build-essential
+    - curl
+    - git
+    - libc6-dev
+    - libreadline-dev
+    - libreadline6-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt-dev
+    - libyaml-dev
+    - make
+    - sqlite3
+    - zlib1g-dev
+
+- name: git clone ruby-build
+  git: >
+    repo={{ ruby_build_repo }}
+    dest=/usr/local/src/ruby-build
+    depth=1
+
+- name: install ruby-build
+  command: /usr/local/src/ruby-build/install.sh creates=/usr/local/bin/ruby-build
+
+- name: install ruby
+  command: >
+    ruby-build {{ ruby_version }} /usr/local
+    creates=/usr/local/bin/ruby
+
+- name: disable gem documentation
+  copy: >
+    content='gem: --no-document'
+    dest=/usr/local/etc/gemrc
+    mode=0644
+
+- name: install bundler gem
+  gem: >
+    name=bundler
+    version={{ ruby_bundler_version }}
+    state=present
+    user_install=no
+
+- name: install rack gem
+  gem: >
+    name=rack
+    version={{ rack_gem_version }}
+    state=present
+    user_install=no
+
+- name: install sinatra gem
+  gem: >
+    name=sinatra
+    version={{ sinatra_gem_version }}
+    state=present
+    user_install=no

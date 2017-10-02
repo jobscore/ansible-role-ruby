@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-role-ruby
+
+ruby_build_repo: https://github.com/sstephenson/ruby-build.git
+
+ruby_version: 2.1.6
+ruby_bundler_version: 1.10.5
+rack_gem_version: 1.6.4
+sinatra_gem_version: 1.4.7
