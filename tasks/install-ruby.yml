@@ -21,7 +21,7 @@
     - make
     - sqlite3
     - zlib1g-dev
-    - gcc-6
+    - gcc
     - autoconf
     - bison
     - libncurses5-dev
