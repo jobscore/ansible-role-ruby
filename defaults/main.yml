@@ -15,4 +15,4 @@ rack_gem_version: 1.6.4
 install_sinatra: true
 sinatra_gem_version: 1.4.7
 
-disable_gem docs: true
+disable_gem_docs: true

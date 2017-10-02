@@ -21,6 +21,13 @@
     - make
     - sqlite3
     - zlib1g-dev
+    - gcc-6
+    - autoconf
+    - bison
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
 
 - name: Clone ruby-build repo
   git:
