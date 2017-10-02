@@ -4,7 +4,7 @@
     ruby_version: 2.1.6
   roles:
     - role_under_test
-  tasks:
+  post_tasks:
     - name: Check ruby version
       shell: "ruby --version"
       register: version_check

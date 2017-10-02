@@ -48,4 +48,4 @@
     version: "{{ sinatra_gem_version }}"
     state: present
     user_install: no
-  whne: install_sinatra
+  when: install_sinatra
