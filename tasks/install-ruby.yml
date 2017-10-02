@@ -33,5 +33,5 @@
 
 - name: Install ruby
   shell: >
-    "ruby-build {{ ruby_version }} /usr/local "
-    "creates={{ ruby_path}}/ruby "
+    "{{ ruby_path }}ruby-build {{ ruby_version }} {{ ruby_path }} "
+    "creates={{ ruby_path}}/ruby"
