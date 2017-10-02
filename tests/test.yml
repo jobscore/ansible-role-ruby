@@ -6,7 +6,7 @@
     - role_under_test
   post_tasks:
     - name: Check ruby version
-      shell: "ruby --version"
+      shell: "ruby -v"
       register: version_check
     - name: Ensure the right Ruby version is installed
       fail:
@@ -20,7 +20,7 @@
     - role_under_test
   post_tasks:
     - name: Check ruby version
-      shell: "ruby --version"
+      shell: "ruby -v"
       register: version_check
     - name: Ensure the right Ruby version is installed
       fail:

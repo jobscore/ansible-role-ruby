@@ -36,7 +36,7 @@
     depth: 1
 
 - name: Install ruby-build
-  shell: "/tmp/ruby-build/install.sh creates={{ ruby_path }}/ruby-build"
+  shell: "PREFIX={{ ruby_path }} /tmp/ruby-build/install.sh"
 
 - name: Install ruby
-  shell: "{{ ruby_path }}/ruby-build {{ ruby_version }} {{ ruby_path }}"
+  shell: "ruby-build {{ ruby_version }} {{ ruby_path }}"

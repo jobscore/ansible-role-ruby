@@ -2,7 +2,7 @@
 # defaults file for ansible-role-ruby
 
 ruby_build_repo: https://github.com/sstephenson/ruby-build.git
-ruby_path: /usr/local/bin
+ruby_path: /usr/local
 
 ruby_version: 2.1.6
 

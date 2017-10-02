@@ -7,7 +7,7 @@
     cache_valid_time: 600
 
 - name: Check if ruby is installed and in the right version
-  shell: "{{ruby_path}}/ruby --version"
+  shell: "ruby -v"
   register: version_check
   ignore_errors: true
 
