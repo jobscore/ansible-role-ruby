@@ -25,7 +25,7 @@
 - name: Clone ruby-build repo
   git:
     repo: "{{ ruby_build_repo }}"
-    dest: /tmp
+    dest: /tmp/ruby-build
     depth: 1
 
 - name: Install ruby-build
