@@ -29,7 +29,7 @@
     depth: 1
 
 - name: Install ruby-build
-  command: "/tmp/ruby-build/install.sh creates={{ ruby_path }}/ruby-build"
+  shell: "/tmp/ruby-build/install.sh creates={{ ruby_path }}/ruby-build"
 
 - name: Install ruby
-  command: "{{ ruby_path }}/ruby-build {{ ruby_version }} {{ ruby_path }}"
+  shell: "{{ ruby_path }}/ruby-build {{ ruby_version }} {{ ruby_path }}"
