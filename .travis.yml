@@ -1,13 +1,11 @@
+---
 language: python
 services: docker
-env:
-- distro: ubuntu1604
-- distro: ubuntu1404
+install:
+  - pip install pipenv
+  - pipenv install --dev --system
 script:
-- wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
-- chmod +x ${PWD}/tests/test.sh
-- export test_idempotence=False
-- "${PWD}/tests/test.sh"
+  - pipenv run molecule test
 notifications:
   email: false
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
@@ -15,6 +13,6 @@ notifications:
     rooms:
       secure: DbsDxOwlDn8QAnkOd450riz8t+Lnr72MG4uZGXZNC2KTcZIIJPmwIhUduJi9k6nyvuQKzM7AQoeyc+EAFJ2YSPnCS/inklUFvW6jFQnFipX5ngnLGw+hwMRncw++DI65zMwIY4Nk1y3qs2NAvReST3x/OGnfU5opbCbjp8CHE0Flc4qNbAtV6q+6SR6lybR+H7X7GrAEJs2ANZDohojRRd62klIa73YzMrtvTaouROFs4x/ttrUytl/OEU68Fd1jzViyHAyGC94HfS+up2V1IU75CVEnjmAu3wCxKDaUkFIPu6a1SnLdujd3zNJNZZcmGGol1FmCIiY8ZGj03c81+K2WQWVbm+OgoS1rU7J6l2273inrac1iCEG3EiG/aQhH6LlBkl/bSJ+CYRQQy4L9C+fYg74PK/B8O3NO4TNrzQH0/sz2CXPfKGnfp1kkYQsTcK0pZ6CDHak6Rr3nwXiQZvrzt68J86E7C+AhXLlu6TTrRIQoR5LLsGK2dZX/gutaRhwZpfx7BAfmu/HERFmvIFHsSBtfrTrMq4kYbdrbtX3aV8pu6Qo8uWRiHVfsSxqvdvK0JJME9Yot5RLbDgPEfde2iKblm8fLmYXOGZt4tsA/jYMQFpBzoiKfSkyKkK3ds7EjSl2TGpC5dpuaSUS72j2yOm/OcclOHUAroP1HPWM=
     template:
-    - 'Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch}
-      by %{author} %{result} in %{elapsed_time} '
-    - 'Total build time: %{duration}'
+      - 'Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch}
+        by %{author} %{result} in %{elapsed_time} '
+      - 'Total build time: %{duration}'

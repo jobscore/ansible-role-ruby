@@ -1,23 +1,15 @@
 ---
 # tasks file for ansible-role-ruby
 
-- name: Ensure APT is updated
-  apt:
-    update_cache: yes
-    cache_valid_time: 600
-
-- name: Check if ruby is installed and in the right version
+- name: Check if ruby is installed
   shell: "ruby -v"
   register: version_check
   ignore_errors: true
-
-- name: Decide whether or not install Ruby
-  set_fact:
-    install_ruby: true
-  when: ruby_version not in version_check.stdout
+  changed_when: false
+  tags: skip_ansible_lint
 
 - include: install-ruby.yml
-  when: install_ruby
+  when: ruby_version not in version_check.stdout
 
 - name: Disable gem documentation
   copy:
@@ -25,27 +17,3 @@
     dest: /usr/local/etc/gemrc
     mode: 0644
   when: disable_gem_docs
-
-- name: Install bundler gem
-  gem:
-    name: bundler
-    version: "{{ ruby_bundler_version }}"
-    state: present
-    user_install: no
-  when: install_bundler
-
-- name: Install rack gem
-  gem:
-    name: rack
-    version: "{{ rack_gem_version }}"
-    state: present
-    user_install: no
-  when: install_rack
-
-- name: Install sinatra gem
-  gem:
-    name: sinatra
-    version: "{{ sinatra_gem_version }}"
-    state: present
-    user_install: no
-  when: install_sinatra

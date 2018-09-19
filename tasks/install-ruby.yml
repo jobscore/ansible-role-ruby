@@ -1,42 +1,39 @@
 ---
 # Install Ruby
 
+- name: Ensure APT is updated
+  apt:
+    update_cache: true
+    cache_valid_time: 600
+
 - name: Ensure APT dependencies are installed
   apt:
     name: "{{ item }}"
     state: present
-    install_recommends: yes
+    install_recommends: false
   with_items:
     - build-essential
     - curl
-    - git
-    - libc6-dev
-    - libreadline-dev
-    - libreadline6-dev
-    - libsqlite3-dev
-    - libssl-dev
-    - libxml2-dev
-    - libxslt-dev
-    - libyaml-dev
-    - make
-    - sqlite3
-    - zlib1g-dev
     - gcc
-    - autoconf
-    - bison
-    - libncurses5-dev
-    - libffi-dev
-    - libgdbm3
-    - libgdbm-dev
+    - unzip
 
-- name: Clone ruby-build repo
-  git:
-    repo: "{{ ruby_build_repo }}"
-    dest: /tmp/ruby-build
-    depth: 1
+- name: Unarchive ruby source
+  unarchive:
+    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.zip"
+    dest: "{{ tmp_dir }}"
+    remote_src: true
 
-- name: Install ruby-build
-  shell: "PREFIX={{ ruby_path }} /tmp/ruby-build/install.sh"
+- name: Build ruby from source
+  command: "{{ item }}"
+  args:
+    chdir: "{{ tmp_dir }}/ruby-{{ ruby_version }}"
+  changed_when: false
+  with_items:
+    - ./configure
+    - make
+    - make install
 
-- name: Install ruby
-  shell: "ruby-build {{ ruby_version }} {{ ruby_path }}"
+- name: Ensure temp folder is absent
+  file:
+    path: "{{ tmp_dir }}/ruby-{{ ruby_version }}"
+    state: absent
