@@ -10,8 +10,6 @@ platforms:
     image: ubuntu:trusty
   - name: xenial
     image: ubuntu:xenial
-  - name: bionic
-    image: ubuntu:bionic
 provisioner:
   name: ansible
   lint:
