@@ -8,33 +8,21 @@
 
 - name: Ensure APT dependencies are installed
   apt:
-    name: "{{ item }}"
+    name: "{{ base_apt_packages }}"
     state: present
     install_recommends: false
-  with_items:
-    - build-essential
-    - curl
-    - unzip
-    - libc6-dev
-    - libreadline-dev
-    - libreadline6-dev
-    - libsqlite3-dev
-    - libssl-dev
-    - libxml2-dev
-    - libxslt-dev
-    - libyaml-dev
-    - make
-    - sqlite3
-    - zlib1g-dev
-    - gcc
-    - autoconf
-    - bison
-    - libncurses5-dev
-    - libffi-dev
-    - libgdbm3
-    - libgdbm-dev
-    - libpq-dev
-    - libmysqlclient-dev
+
+- name: Ensure libgdm3 is present
+  apt:
+    name: libgdm3
+    state: present
+  when: ansible_distribution_release != 'bionic'
+
+- name: Ensure libgdm5 is present
+  apt:
+    name: libgdm5
+    state: present
+  when: ansible_distribution_release == 'bionic'
 
 - name: Unarchive ruby source
   unarchive:
