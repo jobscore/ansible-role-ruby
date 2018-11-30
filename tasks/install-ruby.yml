@@ -6,7 +6,8 @@
     name:
       - build-essential
       - curl
-      - unzip
+      - tar
+      - gzip
       - libc6-dev
       - libreadline-dev
       - libreadline6-dev
@@ -16,9 +17,9 @@
       - libxslt-dev
       - libyaml-dev
       - make
-      - sqlite3
       - zlib1g-dev
       - gcc
+      - g++
       - autoconf
       - bison
       - libncurses5-dev
@@ -27,7 +28,6 @@
       - libpq-dev
       - libmysqlclient-dev
     state: present
-    install_recommends: false
     update_cache: true
     cache_valid_time: 600
 
@@ -35,19 +35,17 @@
   apt:
     name: libgdbm3
     state: present
-    install_recommends: false
   when: ansible_distribution_release != 'bionic'
 
 - name: Ensure libgdbm5 is present
   apt:
     name: libgdbm5
     state: present
-    install_recommends: false
   when: ansible_distribution_release == 'bionic'
 
 - name: Unarchive ruby source code
   unarchive:
-    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.zip"
+    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.tar.gz"
     dest: "{{ tmp_dir }}"
     remote_src: true
 
