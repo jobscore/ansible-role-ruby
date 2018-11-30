@@ -3,7 +3,7 @@
 
 ruby_path: /usr/local
 
-ruby_version: 2.5.1
+ruby_version: 2.3.1
 
 disable_gem_docs: false
 

@@ -37,9 +37,11 @@
     state: present
   when: ansible_distribution_release != 'bionic'
 
-- name: Ensure libgdbm5 is present
+- name: Ensure needed APT packages are present for bionic
   apt:
-    name: libgdbm5
+    name:
+      - libgdbm5
+      - libssl1.0-dev
     state: present
   when: ansible_distribution_release == 'bionic'
 
