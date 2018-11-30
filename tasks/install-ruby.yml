@@ -1,30 +1,51 @@
 ---
 # Install Ruby
 
-- name: Ensure APT is updated
+- name: Ensure needed APT packages are installed
   apt:
+    name:
+      - build-essential
+      - curl
+      - unzip
+      - libc6-dev
+      - libreadline-dev
+      - libreadline6-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - libxml2-dev
+      - libxslt-dev
+      - libyaml-dev
+      - make
+      - sqlite3
+      - zlib1g-dev
+      - gcc
+      - autoconf
+      - bison
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm-dev
+      - libpq-dev
+      - libmysqlclient-dev
+    state: present
+    install_recommends: false
     update_cache: true
     cache_valid_time: 600
 
-- name: Ensure APT dependencies are installed
+- name: Ensure libgdbm3 is present
   apt:
-    name: "{{ base_apt_packages }}"
+    name: libgdbm3
     state: present
     install_recommends: false
-
-- name: Ensure libgdm3 is present
-  apt:
-    name: libgdm3
-    state: present
   when: ansible_distribution_release != 'bionic'
 
-- name: Ensure libgdm5 is present
+- name: Ensure libgdbm5 is present
   apt:
-    name: libgdm5
+    name: libgdbm5
     state: present
+    install_recommends: false
   when: ansible_distribution_release == 'bionic'
 
-- name: Unarchive ruby source
+- name: Unarchive ruby source code
   unarchive:
     src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.zip"
     dest: "{{ tmp_dir }}"

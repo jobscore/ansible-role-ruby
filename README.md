@@ -13,10 +13,13 @@ None
 Role Variables
 --------------
 
-`ruby_version: 2.5.1` 
+`ruby_version: 2.5.1`
 It defines the ruby version to install
 
-For firther reference check out [defaults/main.yml](/defaults/main.yml)
+`disable_gem_docs: true`
+Skip docs while downloading gems
+
+For further reference check out [defaults/main.yml](/defaults/main.yml)
 
 Dependencies
 ------------
@@ -29,7 +32,8 @@ Example Playbook
 ```
     - hosts: all
       roles:
-         - { role: jobscore.ruby, ruby_version: 2.3.5 }
+         - role: jobscore.ruby
+           ruby_version: 2.5.1
 ```
 
 License
