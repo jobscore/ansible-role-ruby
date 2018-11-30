@@ -16,7 +16,7 @@
   apt:
     name: libgdm3
     state: present
-  when: ansible_distribution_release == 'xenial'
+  when: ansible_distribution_release != 'bionic'
 
 - name: Ensure libgdm5 is present
   apt:
