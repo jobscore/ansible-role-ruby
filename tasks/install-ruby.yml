@@ -1,12 +1,7 @@
 ---
 # Install Ruby
 
-- name: Ensure APT is updated
-  apt:
-    update_cache: true
-    cache_valid_time: 600
-
-- name: Ensure APT dependencies are installed
+- name: Ensure needed APT packages are installed
   apt:
     name:
       - build-essential
@@ -29,13 +24,28 @@
       - libncurses5-dev
       - libffi-dev
       - libgdbm-dev
-      - libgdm5
       - libpq-dev
       - libmysqlclient-dev
     state: present
     install_recommends: false
+    update_cache: true
+    cache_valid_time: 600
 
-- name: Unarchive ruby source
+- name: Ensure libgdbm3 is present
+  apt:
+    name: libgdbm3
+    state: present
+    install_recommends: false
+  when: ansible_distribution_release != 'bionic'
+
+- name: Ensure libgdbm5 is present
+  apt:
+    name: libgdbm5
+    state: present
+    install_recommends: false
+  when: ansible_distribution_release == 'bionic'
+
+- name: Unarchive ruby source code
   unarchive:
     src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.zip"
     dest: "{{ tmp_dir }}"
