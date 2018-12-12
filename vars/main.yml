@@ -1,2 +1,26 @@
 ---
 # vars file for ansible-role-ruby
+__base_packages:
+  - build-essential
+  - curl
+  - tar
+  - gzip
+  - libc6-dev
+  - libreadline-dev
+  - libreadline6-dev
+  - libsqlite3-dev
+  - libssl-dev
+  - libxml2-dev
+  - libxslt-dev
+  - libyaml-dev
+  - make
+  - zlib1g-dev
+  - gcc
+  - g++
+  - autoconf
+  - bison
+  - libncurses5-dev
+  - libffi-dev
+  - libgdbm-dev
+  - libpq-dev
+  - libmysqlclient-dev
