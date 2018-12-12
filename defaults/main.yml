@@ -3,8 +3,8 @@
 
 ruby_path: /usr/local
 
-ruby_version: 2.3.1
+ruby_version: 2.5.3
 
-disable_gem_docs: false
+ruby_disable_gem_docs: false
 
-tmp_dir: /tmp
+ruby_tmp_dir: /tmp/ruby-{{ ruby_version }}

@@ -6,8 +6,6 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: trusty
-    image: ubuntu:trusty
   - name: xenial
     image: ubuntu:xenial
   - name: bionic
