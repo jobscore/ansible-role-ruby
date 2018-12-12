@@ -1,0 +1,48 @@
+---
+# Install Ruby
+
+- name: Set needed APT packages for old distros
+  set_fact:
+    apt_packages: "{{ __base_packages }} + [ 'libgdbm3' ]"
+  when: ansible_distribution_release != 'bionic'
+
+- name: Set needed APT packages for bionic
+  set_fact:
+    apt_packages: "{{ __base_packages }} + [ 'libgdbm5' ]"
+  when: ansible_distribution_release == 'bionic'
+
+- name: Ensure needed APT packages are installed
+  apt:
+    name: "{{ apt_packages }}"
+    state: present
+    update_cache: true
+
+- name: Ensure temp folder is present
+  file:
+    path: "{{ ruby_tmp_dir }}"
+    state: directory
+
+- name: Get ruby source code
+  unarchive:
+    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.tar.gz"
+    dest: "{{ ruby_tmp_dir }}"
+    remote_src: true
+    extra_opts:
+      - --strip=1
+
+- name: Install ruby from source
+  command: "{{ item }}"
+  args:
+    chdir: "{{ ruby_tmp_dir }}"
+  changed_when: false
+  with_items:
+    - "./configure --prefix={{ ruby_path }}"
+    - make
+    - make install
+
+- name: Disable gem documentation
+  copy:
+    content: 'gem: --no-document'
+    dest: /usr/local/etc/gemrc
+    mode: 0644
+  when: ruby_disable_gem_docs

@@ -2,18 +2,26 @@
 # tasks file for ansible-role-ruby
 
 - name: Check if ruby is installed
-  shell: "ruby -v"
-  register: version_check
-  ignore_errors: true
+  command: "{{ ruby_path }}/bin/ruby -v"
+  register: ruby_check_cmd
+  failed_when: false
   changed_when: false
-  tags: skip_ansible_lint
 
-- include: install-ruby.yml
-  when: ruby_version not in version_check.stdout
+- name: Decide wether or not install ruby
+  set_fact:
+    ruby_install: "{% if ruby_check_cmd.rc == 0 %}false{% else %}true{% endif %}"
 
-- name: Disable gem documentation
-  copy:
-    content: 'gem: --no-document'
-    dest: /usr/local/etc/gemrc
-    mode: 0644
-  when: disable_gem_docs
+- name: Notify about existing ruby installation
+  debug:
+    msg: >
+      Another Ruby is already
+      present - {{ ruby_check_cmd.stdout }}
+  when: not ruby_install
+
+- include: install.yml
+  when: ruby_install
+
+- name: Ensure temp folder is absent
+  file:
+    path: "{{ ruby_tmp_dir }}"
+    state: absent
