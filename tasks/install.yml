@@ -4,12 +4,17 @@
 - name: Set needed APT packages for old distros
   set_fact:
     apt_packages: "{{ __base_packages }} + [ 'libgdbm3' ]"
-  when: ansible_distribution_release != 'bionic'
+  when: ansible_distribution_release == 'xenial'
 
 - name: Set needed APT packages for bionic
   set_fact:
     apt_packages: "{{ __base_packages }} + [ 'libgdbm5' ]"
   when: ansible_distribution_release == 'bionic'
+
+- name: Set needed APT packages for focal
+  set_fact:
+    apt_packages: "{{ __base_packages }} + [ 'libgdbm6' ]"
+  when: ansible_distribution_release == 'focal'
 
 - name: Ensure needed APT packages are installed
   apt:
