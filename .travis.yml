@@ -7,16 +7,9 @@ python:
 os: linux
 dist: focal
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python3-pip
-
 install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
-  - pip3 install pipenv
   - pipenv install
 
 script:
