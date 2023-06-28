@@ -18,7 +18,7 @@
       present - {{ ruby_check_cmd.stdout }}
   when: not ruby_install
 
-- include: install.yml
+- include_tasks: install.yml
   when: ruby_install
 
 - name: Ensure temp folder is absent
