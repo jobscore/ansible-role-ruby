@@ -30,7 +30,7 @@
     chdir: "{{ ruby_tmp_dir }}"
   changed_when: false
   with_items:
-    - "./configure --prefix={{ ruby_path }}"
+    - "./configure {% if ruby_enable_yjit|bool == True %}--enable-yjit {% endif %}--prefix={{ ruby_path }}"
     - make
     - make install
 

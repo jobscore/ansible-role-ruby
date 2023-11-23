@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 ansible = "*"
 molecule-docker = "*"
-pytest-testinfra = "*"
 yamllint = "*"
 'molecule[docker]' = "*"
 

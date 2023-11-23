@@ -25,3 +25,4 @@ __base_packages:
   - libpq-dev
   - libmysqlclient-dev
   - 'libgdbm[0-9]'
+  - rustc
