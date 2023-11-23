@@ -13,7 +13,7 @@ None
 Role Variables
 --------------
 
-`ruby_version: 2.5.1`
+`ruby_version: 3.2.2`
 It defines the ruby version to install
 
 `disable_gem_docs: true`
@@ -33,7 +33,7 @@ Example Playbook
     - hosts: all
       roles:
          - role: jobscore.ruby
-           ruby_version: 2.5.1
+           ruby_version: 3.2.2
 ```
 
 License
