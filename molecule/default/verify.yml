@@ -1,0 +1,15 @@
+---
+- hosts: all
+  vars:
+    ruby_version: 3.2.2
+  roles:
+    - ansible-role-ruby
+  post_tasks:
+    - name: Check ruby version
+      shell: "ruby -v --yjit"
+      register: version_check
+
+    - name: Ensure the right Ruby version is installed
+      fail:
+        msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
+      when: ruby_version not in version_check.stdout
