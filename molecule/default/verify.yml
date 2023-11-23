@@ -3,7 +3,7 @@
   vars:
     ruby_version: 3.2.2
   roles:
-    - jobscore.ruby
+    - ansible-role-ruby
   post_tasks:
     - name: Check ruby version
       shell: "ruby -v --yjit"

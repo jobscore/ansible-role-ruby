@@ -2,5 +2,5 @@
 - name: Converge
   hosts: all
   roles:
-    - role: jobscore.ruby
+    - role: ansible-role-ruby
       ruby_version: 3.2.2
