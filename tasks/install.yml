@@ -3,7 +3,7 @@
 
 - name: Set needed APT packages
   set_fact:
-    apt_packages: "{{ __base_packages }} + {{ ruby_extra_packages }}"
+    apt_packages: "{{ __base_packages + (ruby_extra_packages | list) }}"
 
 - name: Ensure needed APT packages are installed
   apt:
