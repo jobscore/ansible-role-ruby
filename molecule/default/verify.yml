@@ -13,3 +13,10 @@
       fail:
         msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
       when: ruby_version not in version_check.stdout
+
+    - name: Ensure YJIT is enabled
+      fail:
+        msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
+      when:
+        - ruby_enable_yjit == True
+        - "'YJIT' not in version_check.stdout"
