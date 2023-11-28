@@ -17,11 +17,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install test dependencies.
-        run: pip3 install ansible molecule==6.0.2 molecule-plugins[docker] docker
+      - name: Install pipenv
+        run: pip3 install pipenv
 
-      - name: Run Molecule tests.
-        run: molecule test
+      - name: Create pipenv
+        run: pipenv install
+
+      - name: Run Molecule tests
+        run: pipenv run molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
