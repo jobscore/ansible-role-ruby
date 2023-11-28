@@ -1,6 +1,5 @@
 ---
 galaxy_info:
-  role_name: ruby
   author: Eric Magalhães and Glauber Batista
   description: Ansible role for installing Ruby on Ubuntu
   company: JobScore
