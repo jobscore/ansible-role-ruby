@@ -7,9 +7,9 @@ name = "pypi"
 ansible = "*"
 molecule-docker = "*"
 yamllint = "*"
-'molecule[docker]' = "*"
+'molecule-plugins[docker]' = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.12"
