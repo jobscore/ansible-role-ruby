@@ -6,7 +6,6 @@ galaxy_info:
   company: JobScore
   license: license (GPLv3)
   namespace: jobscore
-  role_name: ruby
 
   min_ansible_version: 2.10
   platforms:
