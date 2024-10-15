@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    ruby_version: 3.2.2
+    ruby_version: 3.3.5
   roles:
     - ansible-role-ruby
   post_tasks:

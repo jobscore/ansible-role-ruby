@@ -3,4 +3,4 @@
   hosts: all
   roles:
     - role: ansible-role-ruby
-      ruby_version: 3.2.2
+      ruby_version: 3.3.5
