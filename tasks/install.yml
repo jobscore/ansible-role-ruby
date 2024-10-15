@@ -11,6 +11,12 @@
     state: present
     update_cache: true
 
+- name: Ensure jemalloc is installed
+  apt:
+    name: libjemalloc-dev
+    state: present
+  when: ruby_with_jemalloc | bool
+
 - name: Ensure temp folder is present
   file:
     path: "{{ ruby_tmp_dir }}"
@@ -24,19 +30,29 @@
     extra_opts:
       - --strip=1
 
+- name: Prepare params
+  set_fact:
+    build_params: "{{ build_params | default('') ~ item | trim ~ ' ' }}"
+  loop:
+    - "--prefix={{ ruby_path }}"
+    - "{% if ruby_enable_yjit|bool %}--enable-yjit{% endif %}"
+    - "{% if ruby_with_jemalloc|bool %}--with-jemalloc{% endif %}"
+    - "{{ ruby_extra_params | default('') }}"
+  no_log: true
+
 - name: Install ruby from source
   command: "{{ item }}"
   args:
     chdir: "{{ ruby_tmp_dir }}"
   changed_when: false
   with_items:
-    - "./configure {% if ruby_enable_yjit|bool == True %}--enable-yjit {% endif %}--prefix={{ ruby_path }}"
+    - "./configure {{ build_params | trim }}"
     - make
     - make install
 
 - name: Disable gem documentation
   copy:
-    content: 'gem: --no-document'
+    content: "gem: --no-document"
     dest: /usr/local/etc/gemrc
     mode: 0644
   when: ruby_disable_gem_docs
