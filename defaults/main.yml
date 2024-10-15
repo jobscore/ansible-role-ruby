@@ -12,3 +12,7 @@ ruby_tmp_dir: /tmp/ruby-{{ ruby_version }}
 ruby_extra_packages: []
 
 ruby_enable_yjit: true
+
+ruby_with_jemalloc: true
+
+ruby_extra_params: ""
