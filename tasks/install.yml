@@ -7,7 +7,7 @@
 
 - name: Ensure needed APT packages are installed
   apt:
-    name: "{{ apt_packages }}"
+    pkg: "{{ apt_packages }}"
     state: present
     update_cache: true
 
