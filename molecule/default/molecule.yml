@@ -7,14 +7,12 @@ lint: |
   set -e
   yamllint .
 platforms:
-  - name: bionic
-    image: ubuntu:bionic
-  - name: focal
-    image: ubuntu:focal
   - name: jammy
     image: ubuntu:jammy
   - name: noble
     image: ubuntu:noble
+  - name: resolute
+    image: ubuntu:resolute
 provisioner:
   name: ansible
   lint:

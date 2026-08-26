@@ -1,18 +1,18 @@
 ---
 galaxy_info:
+  namespace: jobscore
   role_name: ruby
   author: Eric Magalhães and Glauber Batista
   description: Ansible role for installing Ruby on Ubuntu
   company: JobScore
   license: license (GPLv3)
-  namespace: jobscore
 
-  min_ansible_version: 2.10
+  min_ansible_version: "2.10"
   platforms:
     - name: Ubuntu
       versions:
-        - bionic
-        - focal
         - jammy
+        - noble
+        - resolute
   galaxy_tags: []
 dependencies: []

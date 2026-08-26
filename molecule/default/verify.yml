@@ -2,7 +2,7 @@
 - name: Verify
   hosts: all
   vars:
-    ruby_version: 3.3.5
+    ruby_version: 4.0.6
   roles:
     - jobscore.ruby
   post_tasks:
