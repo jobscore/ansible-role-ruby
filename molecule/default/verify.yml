@@ -1,22 +1,24 @@
 ---
-- hosts: all
+- name: Verify
+  hosts: all
   vars:
     ruby_version: 3.3.5
   roles:
-    - ansible-role-ruby
+    - jobscore.ruby
   post_tasks:
     - name: Check ruby version
-      shell: "ruby -v --yjit"
+      ansible.builtin.command: "ruby -v --yjit"
       register: version_check
+      changed_when: false
 
     - name: Ensure the right Ruby version is installed
-      fail:
+      ansible.builtin.fail:
         msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
       when: ruby_version not in version_check.stdout
 
     - name: Ensure YJIT is enabled
-      fail:
+      ansible.builtin.fail:
         msg: "The installed ruby version is different from the expected. Expected {{ ruby_version }} got {{ version_check.stdout }}"
       when:
-        - ruby_enable_yjit == True
+        - ruby_enable_yjit | bool
         - "'YJIT' not in version_check.stdout"

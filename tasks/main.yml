@@ -2,26 +2,27 @@
 # tasks file for ansible-role-ruby
 
 - name: Check if ruby is installed
-  command: "{{ ruby_path }}/bin/ruby -v"
+  ansible.builtin.command: "{{ ruby_path }}/bin/ruby -v"
   register: ruby_check_cmd
   failed_when: false
   changed_when: false
 
 - name: Decide wether or not install ruby
-  set_fact:
+  ansible.builtin.set_fact:
     ruby_install: "{% if ruby_check_cmd.rc == 0 %}false{% else %}true{% endif %}"
 
 - name: Notify about existing ruby installation
-  debug:
+  ansible.builtin.debug:
     msg: >
       Another Ruby is already
       present - {{ ruby_check_cmd.stdout }}
-  when: not ruby_install
+  when: not ruby_install | bool
 
-- include_tasks: install.yml
-  when: ruby_install
+- name: Install ruby
+  ansible.builtin.include_tasks: install.yml
+  when: ruby_install | bool
 
 - name: Ensure temp folder is absent
-  file:
+  ansible.builtin.file:
     path: "{{ ruby_tmp_dir }}"
     state: absent

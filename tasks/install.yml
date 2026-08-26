@@ -2,46 +2,47 @@
 # Install Ruby
 
 - name: Set needed APT packages
-  set_fact:
+  ansible.builtin.set_fact:
     apt_packages: "{{ __base_packages + (ruby_extra_packages | list) }}"
 
 - name: Ensure needed APT packages are installed
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ apt_packages }}"
     state: present
     update_cache: true
 
 - name: Ensure jemalloc is installed
-  apt:
+  ansible.builtin.apt:
     name: libjemalloc-dev
     state: present
   when: ruby_with_jemalloc | bool
 
 - name: Ensure temp folder is present
-  file:
+  ansible.builtin.file:
     path: "{{ ruby_tmp_dir }}"
     state: directory
+    mode: "0755"
 
 - name: Get ruby source code
-  unarchive:
-    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2]}}/ruby-{{ ruby_version }}.tar.gz"
+  ansible.builtin.unarchive:
+    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2] }}/ruby-{{ ruby_version }}.tar.gz"
     dest: "{{ ruby_tmp_dir }}"
     remote_src: true
     extra_opts:
       - --strip=1
 
 - name: Prepare params
-  set_fact:
+  ansible.builtin.set_fact:
     build_params: "{{ build_params | default('') ~ item | trim ~ ' ' }}"
   loop:
     - "--prefix={{ ruby_path }}"
-    - "{% if ruby_enable_yjit|bool %}--enable-yjit{% endif %}"
-    - "{% if ruby_with_jemalloc|bool %}--with-jemalloc{% endif %}"
+    - "{% if ruby_enable_yjit | bool %}--enable-yjit{% endif %}"
+    - "{% if ruby_with_jemalloc | bool %}--with-jemalloc{% endif %}"
     - "{{ ruby_extra_params | default('') }}"
   no_log: true
 
 - name: Install ruby from source
-  command: "{{ item }}"
+  ansible.builtin.command: "{{ item }}"
   args:
     chdir: "{{ ruby_tmp_dir }}"
   changed_when: false
@@ -51,8 +52,8 @@
     - make install
 
 - name: Disable gem documentation
-  copy:
+  ansible.builtin.copy:
     content: "gem: --no-document"
     dest: /usr/local/etc/gemrc
-    mode: 0644
+    mode: "0644"
   when: ruby_disable_gem_docs
