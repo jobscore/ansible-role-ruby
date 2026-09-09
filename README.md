@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jobscore/ansible-role-ruby.svg?branch=master)](https://travis-ci.org/jobscore/ansible-role-ruby)
+[![CI](https://github.com/jobscore/ansible-role-ruby/actions/workflows/ci.yml/badge.svg)](https://github.com/jobscore/ansible-role-ruby/actions/workflows/ci.yml)
 
 Ruby
 =========
@@ -13,7 +13,7 @@ None
 Role Variables
 --------------
 
-`ruby_version: 3.2.2`
+`ruby_version: 4.0.6`
 It defines the ruby version to install
 
 `disable_gem_docs: true`
@@ -33,7 +33,7 @@ Example Playbook
     - hosts: all
       roles:
          - role: jobscore.ruby
-           ruby_version: 3.2.2
+           ruby_version: 4.0.6
 ```
 
 License
@@ -44,4 +44,4 @@ GPL V3
 Author Information
 ------------------
 
-This role was created by [Eric Magalhães](https://emagalha.es) while working for [JobScore Inc](https://jobscore.com).
+This role was created by [Eric Magalhães](https://github.com/ericovis) and [Glauber Batista](https://github.com/GlauberrBatista) while working for [JobScore Inc](https://jobscore.com).
