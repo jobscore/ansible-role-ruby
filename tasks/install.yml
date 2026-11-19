@@ -25,7 +25,7 @@
 
 - name: Get ruby source code
   ansible.builtin.unarchive:
-    src: "https://cache.ruby-lang.org/pub/ruby/{{ ruby_version[:-2] }}/ruby-{{ ruby_version }}.tar.gz"
+    src: "https://cache.ruby-lang.org/pub/ruby/{{ (ruby_version | string).split('.')[:2] | join('.') }}/ruby-{{ ruby_version }}.tar.gz"
     dest: "{{ ruby_tmp_dir }}"
     remote_src: true
     extra_opts:
